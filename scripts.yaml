@@ -11,3 +11,4 @@ scripts:
     - pll:
       - ./dist/spit --help
       - ./dist/spit check --help
+  install: deno install --allow-net --allow-read --allow-env spit.ts
