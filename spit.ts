@@ -54,7 +54,7 @@ const args: SpitArgs = yargs()
     description:
       'Configuration for application, will contain your api user and key',
     alias: 'c',
-    default: '~/.spit.yaml'
+    default: `${Deno.env.get('HOME')}/.spit.yaml`
   })
   .strictCommands()
   .demandCommand(1)
@@ -62,11 +62,15 @@ const args: SpitArgs = yargs()
 
 console.info(args)
 
-const config = yamlParse(await Deno.readTextFile(args.config)) as SpitConfig
+const config = yamlParse(
+  await Deno.readTextFile(
+    await Deno.realPath(args.config)
+  )
+) as SpitConfig
 
 args.ips.forEach(async (ip: string) => {
   const url = `https://${config.hostname}/${config.username}/?key=${config.key}&ip=${ip}&test=${args.test}`
   const resp = await fetch(url)
-  const data = await resp.json()
+  const data = await resp.json() as ScamalyticsApiRequest
   console.log(data)
 })
