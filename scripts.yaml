@@ -1,13 +1,14 @@
 scripts:
   start: deno run --allow-net --allow-read --allow-env spit.ts
   compile:
+    - rm -r ./dist
     - mkdir -p ./dist
     - pll:
       - deno compile --unstable --allow-net --allow-read --allow-env --output=./dist/spit spit.ts
-      - deno compile --unstable --allow-net --allow-read --allow-env --target=aarch64-apple-darwin --output=./dist/spit-aarch64-apple-darwin spit.ts
-      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-apple-darwin --output=./dist/spit-x86_64-apple-darwin spit.ts
-      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-pc-windows-msvc --output=./dist/spit-x86_64-pc-windows-msvc spit.ts
-      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-unknown-linux-gnu --output=./dist/spit-x86_64-unknown-linux-gnu spit.ts
+      - deno compile --unstable --allow-net --allow-read --allow-env --target=aarch64-apple-darwin --output=./dist/spit-aarch64-apple-darwin-$(cat ./VERSION) spit.ts
+      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-apple-darwin --output=./dist/spit-x86_64-apple-darwin-$(cat ./VERSION) spit.ts
+      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-pc-windows-msvc --output=./dist/spit-x86_64-pc-windows-msvc-$(cat ./VERSION) spit.ts
+      - deno compile --unstable --allow-net --allow-read --allow-env --target=x86_64-unknown-linux-gnu --output=./dist/spit-x86_64-unknown-linux-gnu-$(cat ./VERSION) spit.ts
     - pll:
       - ./dist/spit --help
       - ./dist/spit check --help
