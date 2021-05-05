@@ -53,3 +53,4 @@ spit check <(filename.txt)
 - [ ] Build and compilation documentation
 - [ ] CONTRIBUTING.md
 - [ ] Extractor for high frequency IP addresses in logs
+- [ ] Location checker for IP addresses
