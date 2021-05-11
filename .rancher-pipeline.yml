@@ -1,0 +1,9 @@
+stages:
+- name: build
+  steps:
+  - runScriptConfig:
+      image: node:latest
+      shellScript: npm run build
+timeout: 15
+branch: {}
+notification: {}
